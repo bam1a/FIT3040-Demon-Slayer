@@ -60,7 +60,8 @@ class ADemonSlayerCharacter : public ACharacter
 
 	// The progress to use Demon Slayer mode (1 is full, 0 is empty)
 	float demonSlayerMeter;
-	const float COOLDOWNRATE = 0.001f;
+	const float SLAYERDECREASERATE = 0.001f;
+	float cooldownRate;
 
 	UTextureCube* CubeMap;
 

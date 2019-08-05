@@ -123,6 +123,7 @@ void ADemonSlayerCharacter::BeginPlay()
 	hasDemonSlayer = false;
 	demonSlayerMeter = 1.0f;
 	health = 100.0f;
+	cooldownRate = 0.001f;
 	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
 }
 
@@ -294,8 +295,11 @@ void ADemonSlayerCharacter::Tick(float DeltaTime)
 			}
 			// Complete objective
 			ObjectInteractingWith->SetInteractedWith(true);
-			ObjectInteractingWith->SetActorHiddenInGame(true);
-			ObjectInteractingWith->SetActorEnableCollision(false);
+			if (ObjectInteractingWith->GetDisappearsAfterInteract())
+			{
+				ObjectInteractingWith->SetActorHiddenInGame(true);
+				ObjectInteractingWith->SetActorEnableCollision(false);
+			}
 			ObjectInteractingWith = NULL;
 		}
 	}
@@ -304,7 +308,7 @@ void ADemonSlayerCharacter::Tick(float DeltaTime)
 	if (isDemonSlayerActivated && demonSlayerMeter > 0.0f)
 	{
 		// Reduce meter by cooldown constant
-		demonSlayerMeter -= COOLDOWNRATE;
+		demonSlayerMeter -= SLAYERDECREASERATE;
 		if (demonSlayerMeter < 0.0f)
 		{
 			demonSlayerMeter = 0.0f;
@@ -320,7 +324,7 @@ void ADemonSlayerCharacter::Tick(float DeltaTime)
 	if (!isDemonSlayerActivated && demonSlayerMeter < 1.0f)
 	{
 		// Increase meter by cooldown constant
-		demonSlayerMeter += COOLDOWNRATE;
+		demonSlayerMeter += cooldownRate;
 		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), demonSlayerMeter));
 		if (demonSlayerMeter > 1.0f)
 		{
@@ -378,6 +382,8 @@ void ADemonSlayerCharacter::DemonSlayerOn()
 		}
 	}*/
 	GetCharacterMovement()->MaxWalkSpeed = 700.0f;
+	cooldownRate = cooldownRate / 1.25;
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), cooldownRate));
 }
 
 void ADemonSlayerCharacter::DemonSlayerOff()

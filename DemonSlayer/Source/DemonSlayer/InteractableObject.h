@@ -44,6 +44,10 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Details")
 	int ObjectiveID;
 
+	// The ID of the objective the object is connected to
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Details")
+	bool disappearsAfterInteract;
+
 	// The progress of the interaction with the object
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Details")
 	float progress=0.f;
@@ -72,6 +76,8 @@ public:
 
 	// Get objective ID
 	int GetObjectiveID() { return ObjectiveID; }
+
+	bool GetDisappearsAfterInteract() { return disappearsAfterInteract; }
 
 	// Get object name
 	UFUNCTION(BlueprintCallable, Category = "Object details")
