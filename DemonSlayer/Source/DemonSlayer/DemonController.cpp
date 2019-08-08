@@ -97,3 +97,18 @@ void ADemonController::Attack()
 	}
 }
 
+void ADemonController::IncreaseTimeSeen()
+{
+	BB->SetValueAsFloat(TEXT("TimeSeenPlayer"), BB->GetValueAsFloat(TEXT("TimeSeenPlayer")) + GetWorld()->GetDeltaSeconds());
+	if (BB->GetValueAsFloat(TEXT("TimeSeenPlayer")) >= 2.0f)
+	{
+		BB->SetValueAsBool("HasDetectedPlayer", true);
+	}
+}
+
+void ADemonController::ResetTimeSeen()
+{
+	BB->SetValueAsFloat(TEXT("TimeSeenPlayer"), 0.0f);
+	BB->SetValueAsBool("HasDetectedPlayer", false);
+}
+

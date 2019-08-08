@@ -60,4 +60,8 @@ public:
 	// Set focus to player
 	void SetFocusToPlayer(ADemonSlayerCharacter* focus) { SetFocus(focus); }
 
+	void IncreaseTimeSeen();
+	
+	void ResetTimeSeen();
+
 };
