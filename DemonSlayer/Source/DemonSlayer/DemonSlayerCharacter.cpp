@@ -17,6 +17,7 @@
 #include "Engine/TextureCube.h"
 #include "EngineUtils.h"
 #include "DemonController.h"
+#include "SlayerModeDecal.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -383,6 +384,14 @@ void ADemonSlayerCharacter::DemonSlayerOn()
 	}*/
 	GetCharacterMovement()->MaxWalkSpeed = 700.0f;
 	cooldownRate = cooldownRate / 1.25;
+	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		ASlayerModeDecal* slayerDecal = Cast<ASlayerModeDecal>(*ActorItr);
+		if (slayerDecal)
+		{
+			slayerDecal->SetActorHiddenInGame(false);
+		}
+	}
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), cooldownRate));
 }
 
@@ -403,6 +412,14 @@ void ADemonSlayerCharacter::DemonSlayerOff()
 		}
 	}*/
 	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
+	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		ASlayerModeDecal* slayerDecal = Cast<ASlayerModeDecal>(*ActorItr);
+		if (slayerDecal)
+		{
+			slayerDecal->SetActorHiddenInGame(true);
+		}
+	}
 }
 
 void ADemonSlayerCharacter::OnInteract()
