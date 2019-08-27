@@ -61,7 +61,8 @@ public:
 	void SetFocusToPlayer(ADemonSlayerCharacter* focus) { SetFocus(focus); }
 
 	void IncreaseTimeSeen();
-	
+	void IncreaseTimeSeenMediumRange();
+
 	void ResetTimeSeen();
 
 };

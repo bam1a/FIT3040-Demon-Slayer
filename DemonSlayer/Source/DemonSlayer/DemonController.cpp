@@ -100,6 +100,17 @@ void ADemonController::Attack()
 void ADemonController::IncreaseTimeSeen()
 {
 	BB->SetValueAsFloat(TEXT("TimeSeenPlayer"), BB->GetValueAsFloat(TEXT("TimeSeenPlayer")) + GetWorld()->GetDeltaSeconds());
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Time seen: %f"), BB->GetValueAsFloat(TEXT("TimeSeenPlayer"))));
+	if (BB->GetValueAsFloat(TEXT("TimeSeenPlayer")) >= 2.0f)
+	{
+		BB->SetValueAsBool("HasDetectedPlayer", true);
+	}
+}
+
+void ADemonController::IncreaseTimeSeenMediumRange()
+{
+	BB->SetValueAsFloat(TEXT("TimeSeenPlayer"), BB->GetValueAsFloat(TEXT("TimeSeenPlayer")) + GetWorld()->GetDeltaSeconds() * 2);
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Time seen (medium): %f"), BB->GetValueAsFloat(TEXT("TimeSeenPlayer"))));
 	if (BB->GetValueAsFloat(TEXT("TimeSeenPlayer")) >= 2.0f)
 	{
 		BB->SetValueAsBool("HasDetectedPlayer", true);
