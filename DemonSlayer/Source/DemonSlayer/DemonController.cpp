@@ -35,6 +35,8 @@ void ADemonController::BeginPlay()
 	BB->SetValueAsBool(TEXT("CanSeePlayer"), false);
 
 	initialPosition = GetPawn()->GetActorLocation();
+
+	isAttacking = false;
 }
 
 void ADemonController::Senses(AActor* updatedActor, FAIStimulus stimulus)
@@ -89,6 +91,7 @@ void ADemonController::Attack()
 		// Attack player
 		ADemon* thisDemon = Cast<ADemon>(GetPawn());
 		attackTarget->SetHealth(attackTarget->GetHealth() - FMath::RandRange(thisDemon->DAMAGE_LOWERBOUND, thisDemon->DAMAGE_UPPERBOUND));
+		isAttacking = true;
 		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Player health: %f"), attackTarget->GetHealth()));
 		/*if (attackTarget->GetHealth() <= 0)
 		{

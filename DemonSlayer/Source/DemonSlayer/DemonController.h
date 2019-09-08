@@ -31,6 +31,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Enemy")
 	ADemonSlayerCharacter* attackTarget;
 
+	UPROPERTY(BlueprintReadWrite, Category = "Enemy")
+	bool isAttacking;
+
 	// Behaviour tree/blackboard components
 	UPROPERTY(EditDefaultsOnly, Category = "Blackboard")
 	UBlackboardData* blackboardData;
@@ -56,6 +59,7 @@ public:
 	void FindAttackTarget();
 	void CanAttack(FHitResult & HitOut);
 	void Attack(); 
+	void AttackingToFalse() { isAttacking = false; }
 
 	// Set focus to player
 	void SetFocusToPlayer(ADemonSlayerCharacter* focus) { SetFocus(focus); }

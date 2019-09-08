@@ -12,7 +12,6 @@ EBTNodeResult::Type UIncreaseTimeSeenMediumRange::ExecuteTask(UBehaviorTreeCompo
 		return EBTNodeResult::Failed;
 	}
 	else {
-		// Find a location
 		DemonController->IncreaseTimeSeenMediumRange();
 		return EBTNodeResult::Succeeded;
 	}

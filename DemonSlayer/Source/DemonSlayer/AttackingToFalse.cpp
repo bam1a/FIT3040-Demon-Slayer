@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "ResetTimeSeen.h"
+#include "AttackingToFalse.h"
 #include "DemonController.h"
 
-EBTNodeResult::Type UResetTimeSeen::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
+EBTNodeResult::Type UAttackingToFalse::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	// Derived from the FIT3094 Behavior Tree supplementary
 	UBehaviorTreeComponent* BTComp = &OwnerComp;
@@ -12,7 +12,7 @@ EBTNodeResult::Type UResetTimeSeen::ExecuteTask(UBehaviorTreeComponent& OwnerCom
 		return EBTNodeResult::Failed;
 	}
 	else {
-		DemonController->ResetTimeSeen();
+		DemonController->AttackingToFalse();
 		return EBTNodeResult::Succeeded;
 	}
 	return EBTNodeResult::Failed;

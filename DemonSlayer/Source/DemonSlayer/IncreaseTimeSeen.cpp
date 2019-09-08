@@ -12,7 +12,6 @@ EBTNodeResult::Type UIncreaseTimeSeen::ExecuteTask(UBehaviorTreeComponent& Owner
 		return EBTNodeResult::Failed;
 	}
 	else {
-		// Find a location
 		DemonController->IncreaseTimeSeen();
 		return EBTNodeResult::Succeeded;
 	}
