@@ -13,6 +13,7 @@ class ADemonSlayerGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
+protected:
 	TArray<Objective*>* objectiveList;
 
 	int objectiveNo;

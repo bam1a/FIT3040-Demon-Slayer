@@ -18,6 +18,7 @@
 #include "EngineUtils.h"
 #include "DemonController.h"
 #include "SlayerModeDecal.h"
+#include "TimerManager.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -126,6 +127,8 @@ void ADemonSlayerCharacter::BeginPlay()
 	health = 100.0f;
 	cooldownRate = 0.001f;
 	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
+	isAttacking = false;
+	currentAttackCooldown = ATTACK_COOLDOWN;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -331,6 +334,11 @@ void ADemonSlayerCharacter::Tick(float DeltaTime)
 		{
 			demonSlayerMeter = 1.0f;
 		}
+	}
+
+	if(currentAttackCooldown < ATTACK_COOLDOWN)
+	{
+		currentAttackCooldown += DeltaTime;
 	}
 }
 
@@ -572,35 +580,41 @@ void ADemonSlayerCharacter::ProcessTraceHit(FHitResult& HitOut)
 
 void ADemonSlayerCharacter::Attack()
 {
-	// If Demon Slayer mode is activated
-	if (isDemonSlayerActivated)
+	if (currentAttackCooldown >= ATTACK_COOLDOWN)
 	{
-		// Check with ray trace for enemy 
-		FindAttackTarget();
-		if (attackTarget != NULL)
+		if (isDemonSlayerActivated)
 		{
-			// Attack enemy
-			attackTarget->SetHealth(attackTarget->GetHealth() - FMath::RandRange(DAMAGE_LOWERBOUND, DAMAGE_UPPERBOUND));
-			ADemonController* attackTargetController = Cast<ADemonController>(attackTarget->GetController());
-			// Set enemy's focus to player when attacked
-			attackTargetController->SetFocusToPlayer(this);
-			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Enemy health: %f"), attackTarget->GetHealth()));
-			// If enemy's health is zero 
-			if (attackTarget->GetHealth() <= 0)
+			// Check with ray trace for enemy 
+			FindAttackTarget();
+			if (attackTarget != NULL)
 			{
-				// Destroy enemy 
-				attackTarget->Destroy();
-				// Turn off Demon Slayer
-				DemonSlayerOff();
-				// Reset meter to value based on current meter value
-				if (demonSlayerMeter > 0.5f)
+				// Attack enemy
+				isAttacking = true;
+				attackTarget->SetHealth(attackTarget->GetHealth() - FMath::RandRange(DAMAGE_LOWERBOUND, DAMAGE_UPPERBOUND));
+				ADemonController* attackTargetController = Cast<ADemonController>(attackTarget->GetController());
+				// Set enemy's focus to player when attacked
+				attackTargetController->SetFocusToPlayer(this);
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Enemy health: %f"), attackTarget->GetHealth()));
+				// If enemy's health is zero 
+				if (attackTarget->GetHealth() <= 0)
 				{
-					demonSlayerMeter = 0.5f;
+					// Destroy enemy 
+					attackTarget->Destroy();
+					// Turn off Demon Slayer
+					DemonSlayerOff();
+					// Reset meter to value based on current meter value
+					if (demonSlayerMeter > 0.5f)
+					{
+						demonSlayerMeter = 0.5f;
+					}
+					else
+					{
+						demonSlayerMeter = 0.0f;
+					}
 				}
-				else
-				{
-					demonSlayerMeter = 0.0f;
-				}
+				FTimerHandle UnusedHandle;
+				GetWorldTimerManager().SetTimer(UnusedHandle, this, &ADemonSlayerCharacter::AttackingToFalse, 2.633f, false);
+				currentAttackCooldown = 0.0f;
 			}
 		}
 	}

@@ -63,6 +63,9 @@ class ADemonSlayerCharacter : public ACharacter
 	const float SLAYERDECREASERATE = 0.001f;
 	float cooldownRate;
 
+	float const ATTACK_COOLDOWN = 2.633;
+	float currentAttackCooldown;
+
 	UTextureCube* CubeMap;
 
 	// Whether an actor has been raytraced 
@@ -76,6 +79,9 @@ class ADemonSlayerCharacter : public ACharacter
 
 public:
 	ADemonSlayerCharacter();
+	
+	UPROPERTY(BlueprintReadWrite, Category = "Enemy")
+	bool isAttacking;
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -117,6 +123,7 @@ public:
 	void FindAttackTarget();
 	void CanAttack(FHitResult & HitOut);
 	void Attack();
+	void AttackingToFalse() { isAttacking = false; }
 
 protected:
 	virtual void BeginPlay();
