@@ -87,6 +87,10 @@ void ADemonSlayerGameMode::SetObjectToObjective(AInteractableObject* thisObject)
 		{
 			// Set object of this objective
 			objective->SetObject(thisObject);
+			if (objective->GetID() == 201)
+			{
+				objective->GetObject()->SetIsActive(true);
+			}
 			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%i"), objective->GetObject()->GetObjectiveID()));
 		}
 	}

@@ -2,6 +2,7 @@
 
 #include "DemonSlayer2GameMode.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Blueprint/UserWidget.h"
 
 ADemonSlayer2GameMode::ADemonSlayer2GameMode()
 	: Super()
@@ -28,6 +29,15 @@ ADemonSlayer2GameMode::ADemonSlayer2GameMode()
 void ADemonSlayer2GameMode::BeginPlay()
 {
 	Super::BeginPlay();
+	if (mainHUDWidget) {
+		// Create HUD widget
+		currentWidget = CreateWidget<UUserWidget>(GetWorld(), mainHUDWidget);
+		if (currentWidget)
+		{
+			// Add HUD widget to viewport
+			currentWidget->AddToViewport();
+		}
+	}
 }
 
 void ADemonSlayer2GameMode::Tick(float DeltaTime)
