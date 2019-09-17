@@ -3,6 +3,7 @@
 #include "DemonSlayerGameMode.h"
 #include "DemonSlayerHUD.h"
 #include "DemonSlayerCharacter.h"
+#include "Demon.h"
 #include "Blueprint/UserWidget.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Engine/Engine.h"
@@ -58,6 +59,16 @@ void ADemonSlayerGameMode::Tick(float DeltaTime)
 	// If object of current objective has been fully interacted with
 	if (currentObjective->GetObject()->GetInteractedWith())
 	{
+		if (currentObjective->GetID() == 201)
+		{
+			TArray<AActor*> spawners;
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), spawner, spawners);
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%d"), spawners.Num()));
+			for (int i = 0; i < spawners.Num(); i++)
+			{
+				Cast<AEnemySpawner>(spawners[i])->SpawnEnemy();
+			}	
+		}
 		// Set object of current objective to inactive
 		currentObjective->GetObject()->SetIsActive(false);
 		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Objective completed"));

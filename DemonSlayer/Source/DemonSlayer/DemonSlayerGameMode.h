@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "Objective.h"
+#include "EnemySpawner.h"
 #include "InteractableObject.h"
 #include "DemonSlayerGameMode.generated.h"
 
@@ -21,6 +22,9 @@ protected:
 	Objective* currentObjective;
 
 	class UUserWidget* currentWidget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy")
+	TSubclassOf<class AEnemySpawner> spawner;
 
 public:
 	ADemonSlayerGameMode();
