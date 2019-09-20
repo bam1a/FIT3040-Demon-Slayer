@@ -12,6 +12,7 @@ void AEnemySpawner::SpawnEnemy()
 
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Spawning enemies"));
 	ADemon* newDemon = GetWorld()->SpawnActor<ADemon>(enemy, this->GetActorLocation(), this->GetActorRotation(), spawnParams);
+	newDemon->SpawnDefaultController();
 	if (newDemon)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), newDemon->GetActorLocation().Z));
