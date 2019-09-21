@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "InteractableObject.h"
 #include "Demon.h"
+#include "Sound/SoundCue.h"
+#include "Components/AudioComponent.h"
 #include "DemonSlayerCharacter.generated.h"
 
 class UInputComponent;
@@ -79,7 +81,10 @@ class ADemonSlayerCharacter : public ACharacter
 
 public:
 	ADemonSlayerCharacter();
-	
+
+	USoundCue* footstepAudioCue;
+	UAudioComponent* footstepAudioComponent;
+
 	UPROPERTY(BlueprintReadWrite, Category = "Enemy")
 	bool isAttacking;
 

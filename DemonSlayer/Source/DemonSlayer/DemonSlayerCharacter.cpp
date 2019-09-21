@@ -99,6 +99,14 @@ ADemonSlayerCharacter::ADemonSlayerCharacter()
 	{
 		CubeMap = CubemapAsset.Object;
 	}
+
+	// Initialise sounds
+	/*static ConstructorHelpers::FObjectFinder<USoundCue> footstepCue(TEXT("SoundCue'/Game/Audio/footstep_gravel_Cue.footstep_gravel_Cue'"));
+	footstepAudioCue = footstepCue.Object;
+	footstepAudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("FootstepAudioComp"));
+	footstepAudioComponent->bAutoActivate = false;
+	footstepAudioComponent->AutoAttachParent;
+	footstepAudioComponent->SetSound(footstepAudioCue);*/
 }
 
 void ADemonSlayerCharacter::BeginPlay()
