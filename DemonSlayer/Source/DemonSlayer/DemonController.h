@@ -46,6 +46,8 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Blackboard")
 	TSubclassOf<UAISense> sight;
+
+	void ActivateAI();
 	
 	void GetRoamLocation();
 	void GetPlayerLocation();

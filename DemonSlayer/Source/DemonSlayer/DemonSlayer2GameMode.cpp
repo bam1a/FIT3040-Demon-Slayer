@@ -3,6 +3,7 @@
 #include "DemonSlayer2GameMode.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Blueprint/UserWidget.h"
+#include "Kismet/GameplayStatics.h"
 
 ADemonSlayer2GameMode::ADemonSlayer2GameMode()
 	: Super()
@@ -24,6 +25,14 @@ ADemonSlayer2GameMode::ADemonSlayer2GameMode()
 	objectiveNo = 0;
 	currentObjective = (*objectiveList)[objectiveNo];
 	objectiveDescription = currentObjective->GetDescription();
+
+	TArray<AActor*> enemies;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ADemon::StaticClass(), enemies);
+	for (int i = 0; i < enemies.Num(); i++)
+	{
+		enemies[i]->SetActorHiddenInGame(true);
+		enemies[i]->SetActorTickEnabled(false);
+	}
 }
 
 void ADemonSlayer2GameMode::BeginPlay()
@@ -43,4 +52,5 @@ void ADemonSlayer2GameMode::BeginPlay()
 void ADemonSlayer2GameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
 }

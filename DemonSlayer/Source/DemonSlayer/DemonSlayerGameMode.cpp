@@ -4,6 +4,7 @@
 #include "DemonSlayerHUD.h"
 #include "DemonSlayerCharacter.h"
 #include "Demon.h"
+#include "DemonController.h"
 #include "Blueprint/UserWidget.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Engine/Engine.h"
@@ -61,12 +62,13 @@ void ADemonSlayerGameMode::Tick(float DeltaTime)
 	{
 		if (currentObjective->GetID() == 201)
 		{
-			TArray<AActor*> spawners;
-			UGameplayStatics::GetAllActorsOfClass(GetWorld(), spawner, spawners);
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%d"), spawners.Num()));
-			for (int i = 0; i < spawners.Num(); i++)
+			TArray<AActor*> enemies;
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), ADemon::StaticClass(), enemies);
+			for (int i = 0; i < enemies.Num(); i++)
 			{
-				Cast<AEnemySpawner>(spawners[i])->SpawnEnemy();
+				enemies[i]->SetActorHiddenInGame(false);
+				enemies[i]->SetActorTickEnabled(true);
+				Cast<ADemonController>(Cast<ADemon>(enemies[i])->GetController())->ActivateAI();
 			}	
 		}
 		// Set object of current objective to inactive

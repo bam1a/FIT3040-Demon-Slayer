@@ -24,7 +24,7 @@ protected:
 	class UUserWidget* currentWidget;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy")
-	TSubclassOf<class AEnemySpawner> spawner;
+	TSubclassOf<class ADemon> enemy;
 
 public:
 	ADemonSlayerGameMode();

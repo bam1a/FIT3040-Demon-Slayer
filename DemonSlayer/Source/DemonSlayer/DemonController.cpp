@@ -4,6 +4,7 @@
 #include "NavigationSystem.h"
 #include "Engine/Engine.h"
 #include "DemonSlayerCharacter.h"
+#include "DemonSlayer2GameMode.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -16,13 +17,16 @@ void ADemonController::BeginPlay()
 {
 	Super::BeginPlay();
 	PrimaryActorTick.bCanEverTick = true;
-
+	
 	// Check blackboard and behaviour tree
 	if (!blackboardData) { return; }
 	UseBlackboard(blackboardData, BB);
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Some debug message!"));
-	if (!ensure(behaviorTree)) { return; }
-	RunBehaviorTree(behaviorTree);
+	if (!Cast<ADemonSlayer2GameMode>(GetWorld()->GetAuthGameMode()))
+	{
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Some debug message!"));
+		if (!ensure(behaviorTree)) { return; }
+		RunBehaviorTree(behaviorTree);
+	}
 
 	// Derived from the FIT3094 Behavior Tree supplementary 
 	AIPerception = ADemonController::FindComponentByClass<UAIPerceptionComponent>();
@@ -58,6 +62,13 @@ void ADemonController::Senses(AActor* updatedActor, FAIStimulus stimulus)
 	{
 		BB->SetValueAsBool("CanSeePlayer", false);
 	}
+}
+
+void ADemonController::ActivateAI()
+{
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Some debug message!"));
+	if (!ensure(behaviorTree)) { return; }
+	RunBehaviorTree(behaviorTree);
 }
 
 void ADemonController::GetRoamLocation()
