@@ -24,10 +24,10 @@ ADemonSlayerGameMode::ADemonSlayerGameMode()
 
 	// Initialise objectives
 	objectiveList = new TArray<Objective*>;
-	objectiveList->Add(new Objective(101, "Find the source of the supernatural occurences"));
-	objectiveList->Add(new Objective(102, "Investigate the smoke"));
-	objectiveList->Add(new Objective(103, "Search for a key into the mansion"));
-	objectiveList->Add(new Objective(104, "Enter the mansion"));
+	objectiveList->Add(new Objective(101, "Find the source of the supernatural occurences", "Pick up the mask from the fountain"));
+	objectiveList->Add(new Objective(102, "Investigate the smoke", "Find the smoke on the left side of the mansion"));
+	objectiveList->Add(new Objective(103, "Search for a key into the mansion", "Pick up the key next to the statue"));
+	objectiveList->Add(new Objective(104, "Enter the mansion", "Use the key on the front door of the mansion"));
 
 	// Set current objective to first objective in list
 	objectiveNo = 0;

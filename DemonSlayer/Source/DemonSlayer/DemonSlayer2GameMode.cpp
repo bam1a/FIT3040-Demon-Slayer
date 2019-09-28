@@ -15,11 +15,11 @@ ADemonSlayer2GameMode::ADemonSlayer2GameMode()
 
 	// Initialise objectives
 	objectiveList = new TArray<Objective*>;
-	objectiveList->Add(new Objective(201, "Investigate the blood trail"));
-	objectiveList->Add(new Objective(202, "Go to the bathroom and find the key"));
-	objectiveList->Add(new Objective(203, "Find the door that the key unlocks"));
-	objectiveList->Add(new Objective(204, "Find another way into the ballroom"));
-	objectiveList->Add(new Objective(205, "Cut down the ballroom door"));
+	objectiveList->Add(new Objective(201, "Investigate the blood trail", "Read the blood writing at the end of the blood trail"));
+	objectiveList->Add(new Objective(202, "Go to the bathroom and find the key", "Pick up the key in the bathroom's sink"));
+	objectiveList->Add(new Objective(203, "Find the door that the key unlocks", "Unlock the ballroom door in the foyer"));
+	objectiveList->Add(new Objective(204, "Find another way into the ballroom", "Grab the axe in the living room"));
+	objectiveList->Add(new Objective(205, "Cut down the ballroom door", "Cut down the ballroom door"));
 
 	// Set current objective to first objective in list
 	objectiveNo = 0;

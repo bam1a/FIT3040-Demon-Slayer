@@ -130,6 +130,8 @@ public:
 	void Attack();
 	void AttackingToFalse() { isAttacking = false; }
 
+	void Hint();
+
 protected:
 	virtual void BeginPlay();
 

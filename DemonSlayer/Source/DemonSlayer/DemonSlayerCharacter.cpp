@@ -18,7 +18,9 @@
 #include "EngineUtils.h"
 #include "DemonController.h"
 #include "SlayerModeDecal.h"
+#include "SlayerModeObject.h"
 #include "TimerManager.h"
+#include "DemonSlayer2GameMode.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -137,6 +139,11 @@ void ADemonSlayerCharacter::BeginPlay()
 	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
 	isAttacking = false;
 	currentAttackCooldown = ATTACK_COOLDOWN;
+	if (Cast<ADemonSlayer2GameMode>(GetWorld()->GetAuthGameMode()))
+	{
+		hasDemonSlayer = true;
+	}
+
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -155,6 +162,7 @@ void ADemonSlayerCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &ADemonSlayerCharacter::OnInteract);
 	PlayerInputComponent->BindAction("Interact", IE_Released, this, &ADemonSlayerCharacter::OnStopInteract);
 	PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &ADemonSlayerCharacter::Attack);
+	PlayerInputComponent->BindAction("Hint", IE_Pressed, this, &ADemonSlayerCharacter::Hint);
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
@@ -408,6 +416,15 @@ void ADemonSlayerCharacter::DemonSlayerOn()
 			slayerDecal->SetActorHiddenInGame(false);
 		}
 	}
+
+	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		ASlayerModeObject* slayerObject = Cast<ASlayerModeObject>(*ActorItr);
+		if (slayerObject)
+		{
+			slayerObject->SetActorHiddenInGame(false);
+		}
+	}
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), cooldownRate));
 }
 
@@ -434,6 +451,14 @@ void ADemonSlayerCharacter::DemonSlayerOff()
 		if (slayerDecal)
 		{
 			slayerDecal->SetActorHiddenInGame(true);
+		}
+	}
+	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		ASlayerModeObject* slayerObject = Cast<ASlayerModeObject>(*ActorItr);
+		if (slayerObject)
+		{
+			slayerObject->SetActorHiddenInGame(true);
 		}
 	}
 }
@@ -626,6 +651,16 @@ void ADemonSlayerCharacter::Attack()
 			}
 		}
 	}
+}
+
+void ADemonSlayerCharacter::Hint()
+{
+	ADemonSlayerGameMode* gameMode = Cast<ADemonSlayerGameMode>(GetWorld()->GetAuthGameMode());
+	if (gameMode)
+	{
+		gameMode->SetDescription(gameMode->GetCurrentObjective()->GetSecondary());
+	}
+	demonSlayerMeter = 0.0f;
 }
 
 void ADemonSlayerCharacter::FindAttackTarget()

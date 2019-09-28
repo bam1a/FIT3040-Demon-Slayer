@@ -44,6 +44,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
 	TSubclassOf<class UUserWidget> mainHUDWidget;
 
+	void SetDescription(FString newDescription) { objectiveDescription = newDescription; }
+
+	Objective* GetCurrentObjective() { return currentObjective; }
+
 };
 
 
