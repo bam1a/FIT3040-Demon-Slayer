@@ -84,8 +84,20 @@ void ADemonSlayerGameMode::Tick(float DeltaTime)
 		}
 		else
 		{
-			// Restart level
-			GetWorld()->Exec(GetWorld(), TEXT("RestartLevel"));
+			UWorld* level = GetWorld();
+			FString levelName = level->GetMapName();
+
+			if (levelName == "Level1Test")
+			{
+				FString MapString = UGameplayStatics::ParseOption(this->OptionsString, "MapToLoad");
+				MapString = "/Game/Maps/Level2Test.Level2Test";
+				FStringAssetReference MapToLoad = FStringAssetReference(MapString);
+				UGameplayStatics::OpenLevel(GetWorld(), FName(*MapToLoad.GetAssetName()));
+			}
+			else if (levelName == "Level2Test")
+			{
+				GetWorld()->Exec(GetWorld(), TEXT("RestartLevel"));
+			}
 		}
 	}
 }
