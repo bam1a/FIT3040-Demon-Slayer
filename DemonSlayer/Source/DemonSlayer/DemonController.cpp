@@ -114,7 +114,7 @@ void ADemonController::Attack()
 void ADemonController::IncreaseTimeSeen()
 {
 	BB->SetValueAsFloat(TEXT("DetectionMeter"), BB->GetValueAsFloat(TEXT("DetectionMeter")) + GetWorld()->GetDeltaSeconds());
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Detection meter: %f"), BB->GetValueAsFloat(TEXT("DetectionMeter"))));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Detection meter: %f"), BB->GetValueAsFloat(TEXT("DetectionMeter"))));
 	if (BB->GetValueAsFloat(TEXT("DetectionMeter")) >= 2.0f)
 	{
 		BB->SetValueAsBool("HasDetectedPlayer", true);
@@ -124,7 +124,7 @@ void ADemonController::IncreaseTimeSeen()
 void ADemonController::IncreaseTimeSeenMediumRange()
 {
 	BB->SetValueAsFloat(TEXT("DetectionMeter"), BB->GetValueAsFloat(TEXT("DetectionMeter")) + (GetWorld()->GetDeltaSeconds() * 2));
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Detection meter(medium): %f"), BB->GetValueAsFloat(TEXT("DetectionMeter"))));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Detection meter(medium): %f"), BB->GetValueAsFloat(TEXT("DetectionMeter"))));
 	if (BB->GetValueAsFloat(TEXT("DetectionMeter")) >= 2.0f)
 	{
 		BB->SetValueAsBool("HasDetectedPlayer", true);

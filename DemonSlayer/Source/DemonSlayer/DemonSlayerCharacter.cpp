@@ -425,7 +425,7 @@ void ADemonSlayerCharacter::DemonSlayerOn()
 			slayerObject->SetActorHiddenInGame(false);
 		}
 	}
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), cooldownRate));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), cooldownRate));
 }
 
 void ADemonSlayerCharacter::DemonSlayerOff()
@@ -627,7 +627,7 @@ void ADemonSlayerCharacter::Attack()
 				ADemonController* attackTargetController = Cast<ADemonController>(attackTarget->GetController());
 				// Set enemy's focus to player when attacked
 				attackTargetController->SetFocusToPlayer(this);
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Enemy health: %f"), attackTarget->GetHealth()));
+				//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Enemy health: %f"), attackTarget->GetHealth()));
 				// If enemy's health is zero 
 				if (attackTarget->GetHealth() <= 0)
 				{
