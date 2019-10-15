@@ -129,6 +129,7 @@ public:
 	void CanAttack(FHitResult & HitOut);
 	void Attack();
 	void AttackingToFalse() { isAttacking = false; }
+	void Stun(); 
 
 	void Hint();
 

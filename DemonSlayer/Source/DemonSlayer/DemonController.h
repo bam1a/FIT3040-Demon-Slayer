@@ -71,4 +71,7 @@ public:
 
 	void ResetTimeSeen();
 
+	void Stun();
+	void Unstun();
+
 };

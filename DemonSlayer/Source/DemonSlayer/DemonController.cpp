@@ -12,6 +12,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "EngineUtils.h"
 #include "Demon.h"
+#include "TimerManager.h"
 
 void ADemonController::BeginPlay()
 {
@@ -135,5 +136,18 @@ void ADemonController::ResetTimeSeen()
 {
 	BB->SetValueAsFloat(TEXT("TimeSeen"), 0.0f);
 	BB->SetValueAsBool("HasDetectedPlayer", false);
+}
+
+void ADemonController::Stun()
+{
+	BB->SetValueAsBool("IsStunned", true);
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Enemy is stunned"));
+	FTimerHandle UnusedHandle;
+	GetWorldTimerManager().SetTimer(UnusedHandle, this, &ADemonController::Unstun, 2.0f, false);
+}
+
+void ADemonController::Unstun()
+{
+	BB->SetValueAsBool("IsStunned", false);
 }
 

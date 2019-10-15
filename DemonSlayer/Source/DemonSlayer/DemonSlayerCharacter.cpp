@@ -163,6 +163,7 @@ void ADemonSlayerCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 	PlayerInputComponent->BindAction("Interact", IE_Released, this, &ADemonSlayerCharacter::OnStopInteract);
 	PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &ADemonSlayerCharacter::Attack);
 	PlayerInputComponent->BindAction("Hint", IE_Pressed, this, &ADemonSlayerCharacter::Hint);
+	PlayerInputComponent->BindAction("Stun", IE_Pressed, this, &ADemonSlayerCharacter::Stun);
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
@@ -650,6 +651,18 @@ void ADemonSlayerCharacter::Attack()
 				currentAttackCooldown = 0.0f;
 			}
 		}
+	}
+}
+
+void ADemonSlayerCharacter::Stun()
+{	
+	// Check with ray trace for enemy 
+	FindAttackTarget();
+	if (attackTarget != NULL)
+	{
+		ADemonController* attackTargetController = Cast<ADemonController>(attackTarget->GetController());
+		// Call enemy's stun function
+		attackTargetController->Stun();
 	}
 }
 
