@@ -594,7 +594,10 @@ void ADemonSlayerCharacter::ProcessTraceHit(FHitResult& HitOut)
 {
 
 	// Cast the actor to ABaseActor
+	//interactable object
 	AInteractableObject* const ActorFound = Cast<AInteractableObject>(HitOut.GetActor());
+	ADemon* const DemonFound = Cast<ADemon>(HitOut.GetActor());
+
 
 	if (ActorFound)
 	{
@@ -602,12 +605,19 @@ void ADemonSlayerCharacter::ProcessTraceHit(FHitResult& HitOut)
 		actorRaytraced = true;
 		currentActor = ActorFound;
 	}
+	else if (DemonFound)
+	{
+		// set object looking to object hit by ray trace 
+		//actorRaytraced = true;
+		currentDemon = DemonFound;
+	}
 	else
 	{
 		//UE_LOG(LogClass, Warning, TEXT("TestPickup is NOT a Pickup!"));
 		// Reset ray trace information
 		actorRaytraced = false;
 		currentActor = NULL;
+		currentDemon = NULL;
 		ObjectInteractingWith = NULL;
 	}
 }

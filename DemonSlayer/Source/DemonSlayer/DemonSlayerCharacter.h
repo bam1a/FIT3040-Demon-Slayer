@@ -76,6 +76,10 @@ class ADemonSlayerCharacter : public ACharacter
 	// The item the player is currently looking at
 	AInteractableObject* currentActor;
 
+	// The demon the player is currently looking at
+	ADemon* currentDemon;
+
+
 	// The current demon the player is attacking
 	ADemon* attackTarget;
 
@@ -115,6 +119,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	AInteractableObject* GetCurrentActor() { return currentActor; }
+
+	UFUNCTION(BlueprintCallable, Category = Gameplay)
+	ADemon* GetCurrentDemon() { return currentDemon; }
+
 
 	void OnInteract();
 	void OnStopInteract();
