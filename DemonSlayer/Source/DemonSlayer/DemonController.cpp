@@ -104,6 +104,7 @@ void ADemonController::Attack()
 		ADemon* thisDemon = Cast<ADemon>(GetPawn());
 		attackTarget->SetHealth(attackTarget->GetHealth() - FMath::RandRange(thisDemon->DAMAGE_LOWERBOUND, thisDemon->DAMAGE_UPPERBOUND));
 		isAttacking = true;
+		Cast<ADemonSlayerCharacter>(attackTarget)->HasBeenAttacked();
 		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Player health: %f"), attackTarget->GetHealth()));
 		/*if (attackTarget->GetHealth() <= 0)
 		{
@@ -141,7 +142,6 @@ void ADemonController::ResetTimeSeen()
 void ADemonController::Stun()
 {
 	BB->SetValueAsBool("IsStunned", true);
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Enemy is stunned"));
 	FTimerHandle UnusedHandle;
 	GetWorldTimerManager().SetTimer(UnusedHandle, this, &ADemonController::Unstun, 2.0f, false);
 }

@@ -83,6 +83,8 @@ class ADemonSlayerCharacter : public ACharacter
 	// The current demon the player is attacking
 	ADemon* attackTarget;
 
+	bool hasBeenAttacked;
+
 public:
 	ADemonSlayerCharacter();
 
@@ -112,9 +114,6 @@ public:
 	float GetHealth() { return health; }
 
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
-	void SetHealth(float newHealth) { health = newHealth; }
-
-	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	float GetDemonSlayerMeter() { return demonSlayerMeter; }
 
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
@@ -122,6 +121,15 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	ADemon* GetCurrentDemon() { return currentDemon; }
+
+	UFUNCTION(BlueprintCallable, Category = Gameplay)
+	bool GetHasBeenAttacked() { return hasBeenAttacked; }
+
+	/** Mutators */
+	UFUNCTION(BlueprintCallable, Category = Gameplay)
+	void SetHealth(float newHealth) { health = newHealth; }
+
+	
 
 
 	void OnInteract();
@@ -138,6 +146,9 @@ public:
 	void Attack();
 	void AttackingToFalse() { isAttacking = false; }
 	void Stun(); 
+
+	void HasBeenAttacked();
+	void HasBeenAttackedToFalse() { hasBeenAttacked = false; }
 
 	void Hint();
 

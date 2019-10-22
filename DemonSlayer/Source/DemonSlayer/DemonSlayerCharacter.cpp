@@ -464,6 +464,13 @@ void ADemonSlayerCharacter::DemonSlayerOff()
 	}
 }
 
+void ADemonSlayerCharacter::HasBeenAttacked()
+{
+	hasBeenAttacked = true;
+	FTimerHandle UnusedHandle;
+	GetWorldTimerManager().SetTimer(UnusedHandle, this, &ADemonSlayerCharacter::HasBeenAttackedToFalse, 0.1f, false);
+}
+
 void ADemonSlayerCharacter::OnInteract()
 {	// If Demon Slayer is deactivated
 	if (!isDemonSlayerActivated)
