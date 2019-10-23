@@ -668,6 +668,10 @@ void ADemonSlayerCharacter::Attack()
 				currentAttackCooldown = 0.0f;
 			}
 		}
+		else
+		{
+			Stun();
+		}
 	}
 }
 
@@ -685,12 +689,19 @@ void ADemonSlayerCharacter::Stun()
 
 void ADemonSlayerCharacter::Hint()
 {
-	ADemonSlayerGameMode* gameMode = Cast<ADemonSlayerGameMode>(GetWorld()->GetAuthGameMode());
-	if (gameMode)
+	if (demonSlayerMeter == 1.0f)
 	{
-		gameMode->SetDescription(gameMode->GetCurrentObjective()->GetSecondary());
+		ADemonSlayerGameMode* gameMode = Cast<ADemonSlayerGameMode>(GetWorld()->GetAuthGameMode());
+		if (gameMode)
+		{
+			gameMode->SetDescription(gameMode->GetCurrentObjective()->GetSecondary());
+		}
+		demonSlayerMeter = 0.0f;
+		if (isDemonSlayerActivated)
+		{
+			DemonSlayerOff();
+		}
 	}
-	demonSlayerMeter = 0.0f;
 }
 
 void ADemonSlayerCharacter::FindAttackTarget()
