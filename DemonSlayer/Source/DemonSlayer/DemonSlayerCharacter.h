@@ -52,6 +52,7 @@ class ADemonSlayerCharacter : public ACharacter
 
 	bool isDemonSlayerActivated;
 	bool hasDemonSlayer;
+
 	const float DAMAGE_LOWERBOUND = 20.0f;
 	const float DAMAGE_UPPERBOUND = 60.0f;
 
@@ -79,10 +80,6 @@ class ADemonSlayerCharacter : public ACharacter
 	// The demon the player is currently looking at
 	ADemon* currentDemon;
 
-
-	// The current demon the player is attacking
-	ADemon* attackTarget;
-
 	bool hasBeenAttacked;
 
 public:
@@ -101,6 +98,10 @@ public:
 	void ToggleDemonSlayer();
 	void DemonSlayerOn();
 	void DemonSlayerOff();
+
+	// The current demon the player is attacking
+	UPROPERTY(BlueprintReadOnly, Category = Gameplay)
+	ADemon* attackTarget;
 
 	/** Accessors */
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
@@ -121,6 +122,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	ADemon* GetCurrentDemon() { return currentDemon; }
+
+	UFUNCTION(BlueprintCallable, Category = Gameplay)
+	ADemon* GetAttackTarget() { return attackTarget; }
 
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	bool GetHasBeenAttacked() { return hasBeenAttacked; }
@@ -146,6 +150,11 @@ public:
 	void Attack();
 	void AttackingToFalse() { isAttacking = false; }
 	void Stun(); 
+
+	UFUNCTION(BlueprintCallable, Category = Attack)
+	float GetDamageLowerBound() { return DAMAGE_LOWERBOUND; }
+	UFUNCTION(BlueprintCallable, Category = Attack)
+	float GetDamageUpperBound() { return DAMAGE_UPPERBOUND; }
 
 	UFUNCTION(BlueprintCallable, Category = Attack)
 	void HasBeenAttacked();

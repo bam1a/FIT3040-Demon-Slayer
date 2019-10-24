@@ -30,9 +30,11 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	// Get health
+	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	float GetHealth() { return demonHealth; }
 
 	// Set health
+	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	void SetHealth(float newHealth) { demonHealth = newHealth; }
 
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
