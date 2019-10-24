@@ -101,10 +101,10 @@ void ADemonController::Attack()
 	if (attackTarget != NULL)
 	{
 		// Attack player
-		ADemon* thisDemon = Cast<ADemon>(GetPawn());
-		attackTarget->SetHealth(attackTarget->GetHealth() - FMath::RandRange(thisDemon->DAMAGE_LOWERBOUND, thisDemon->DAMAGE_UPPERBOUND));
+		//ADemon* thisDemon = Cast<ADemon>(GetPawn());
+		//attackTarget->SetHealth(attackTarget->GetHealth() - FMath::RandRange(thisDemon->DAMAGE_LOWERBOUND, thisDemon->DAMAGE_UPPERBOUND));
 		isAttacking = true;
-		Cast<ADemonSlayerCharacter>(attackTarget)->HasBeenAttacked();
+		//Cast<ADemonSlayerCharacter>(attackTarget)->HasBeenAttacked();
 		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Player health: %f"), attackTarget->GetHealth()));
 		/*if (attackTarget->GetHealth() <= 0)
 		{

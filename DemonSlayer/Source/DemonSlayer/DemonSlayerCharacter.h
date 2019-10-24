@@ -147,6 +147,7 @@ public:
 	void AttackingToFalse() { isAttacking = false; }
 	void Stun(); 
 
+	UFUNCTION(BlueprintCallable, Category = Attack)
 	void HasBeenAttacked();
 	void HasBeenAttackedToFalse() { hasBeenAttacked = false; }
 
