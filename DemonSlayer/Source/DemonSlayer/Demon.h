@@ -21,6 +21,7 @@ protected:
 
 	// The demon's health
 	float demonHealth;
+	float maxHealth=100.f;
 
 public:
 	// Called every frame
@@ -32,6 +33,10 @@ public:
 	// Get health
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	float GetHealth() { return demonHealth; }
+
+	//get max health
+	UFUNCTION(BlueprintPure, Category = Gameplay)
+		float GetMaxHealth() { return maxHealth; }
 
 	// Set health
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
