@@ -493,6 +493,11 @@ void ADemonSlayerCharacter::OnStopInteract()
 		// Reset interaction
 		ObjectInteractingWith = NULL;
 	}
+	if (currentDemon)
+	{
+		// Reset interaction
+		ObjectInteractingWith = NULL;
+	}
 }
 
 /* Trace code derived from FIT2097 tutorials code*/

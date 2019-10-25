@@ -19,6 +19,10 @@ void ADemon::BeginPlay()
 	
 	// Set Demon's speed to walking speed
 	GetCharacterMovement()->MaxWalkSpeed = 150.0f;
+
+	//set its max health->its predefined health.
+	maxHealth = demonHealth;
+
 }
 
 // Called every frame
