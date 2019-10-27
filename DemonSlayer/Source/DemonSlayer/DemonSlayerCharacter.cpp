@@ -408,7 +408,6 @@ void ADemonSlayerCharacter::DemonSlayerOn()
 		}
 	}*/
 	GetCharacterMovement()->MaxWalkSpeed = 700.0f;
-	cooldownRate = cooldownRate / 1.25;
 	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
 	{
 		ASlayerModeDecal* slayerDecal = Cast<ASlayerModeDecal>(*ActorItr);
@@ -646,13 +645,13 @@ void ADemonSlayerCharacter::Attack()
 			{
 				// Attack enemy
 				isAttacking = true;
-				attackTarget->SetHealth(attackTarget->GetHealth() - FMath::RandRange(DAMAGE_LOWERBOUND, DAMAGE_UPPERBOUND));
+				//attackTarget->SetHealth(attackTarget->GetHealth() - FMath::RandRange(DAMAGE_LOWERBOUND, DAMAGE_UPPERBOUND));
 				ADemonController* attackTargetController = Cast<ADemonController>(attackTarget->GetController());
 				// Set enemy's focus to player when attacked
 				attackTargetController->SetFocusToPlayer(this);
 				//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Enemy health: %f"), attackTarget->GetHealth()));
 				// If enemy's health is zero 
-				if (attackTarget->GetHealth() <= 0)
+				/*if (attackTarget->GetHealth() <= 0)
 				{
 					// Destroy enemy 
 					attackTarget->Destroy();
@@ -667,7 +666,7 @@ void ADemonSlayerCharacter::Attack()
 					{
 						demonSlayerMeter = 0.0f;
 					}
-				}
+				}*/
 				FTimerHandle UnusedHandle;
 				GetWorldTimerManager().SetTimer(UnusedHandle, this, &ADemonSlayerCharacter::AttackingToFalse, 2.633f, false);
 				currentAttackCooldown = 0.0f;

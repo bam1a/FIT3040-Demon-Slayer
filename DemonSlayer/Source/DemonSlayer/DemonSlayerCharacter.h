@@ -59,10 +59,6 @@ class ADemonSlayerCharacter : public ACharacter
 	// The player's health
 	float health;
 
-
-
-	// The progress to use Demon Slayer mode (1 is full, 0 is empty)
-	float demonSlayerMeter;
 	const float SLAYERDECREASERATE = 0.001f;
 	float cooldownRate;
 
@@ -97,6 +93,7 @@ public:
 	/** Turn Demon Slayer mode on or off */
 	void ToggleDemonSlayer();
 	void DemonSlayerOn();
+	UFUNCTION(BlueprintCallable, Category = SlayerMode)
 	void DemonSlayerOff();
 
 	// The current demon the player is attacking
@@ -133,8 +130,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	void SetHealth(float newHealth) { health = newHealth; }
 
-	
-
+	// The progress to use Demon Slayer mode (1 is full, 0 is empty)
+	UPROPERTY(BlueprintReadWrite, Category = SlayerMode)
+	float demonSlayerMeter;
 
 	void OnInteract();
 	void OnStopInteract();
