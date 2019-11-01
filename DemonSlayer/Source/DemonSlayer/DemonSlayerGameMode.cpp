@@ -96,7 +96,10 @@ void ADemonSlayerGameMode::Tick(float DeltaTime)
 			}
 			else if (levelName == "Level2Test")
 			{
-				GetWorld()->Exec(GetWorld(), TEXT("RestartLevel"));
+				FString MapString = UGameplayStatics::ParseOption(this->OptionsString, "MapToLoad");
+				MapString = "/Game/Maps/LevelEndScreen.LevelEndScreen";
+				FStringAssetReference MapToLoad = FStringAssetReference(MapString);
+				UGameplayStatics::OpenLevel(GetWorld(), FName(*MapToLoad.GetAssetName()));
 			}
 		}
 	}
