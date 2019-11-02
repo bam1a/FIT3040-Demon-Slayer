@@ -97,7 +97,7 @@ public:
 	void DemonSlayerOff();
 
 	// The current demon the player is attacking
-	UPROPERTY(BlueprintReadOnly, Category = Gameplay)
+	UPROPERTY(BlueprintReadWrite, Category = Gameplay)
 	ADemon* attackTarget;
 
 	/** Accessors */
