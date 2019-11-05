@@ -257,6 +257,8 @@ void ADemonSlayerCharacter::MoveForward(float Value)
 	{
 		// add movement in that direction
 		AddMovementInput(GetActorForwardVector(), Value);
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), GetCharacterMovement()->MaxWalkSpeed));
+
 	}
 }
 
@@ -266,6 +268,7 @@ void ADemonSlayerCharacter::MoveRight(float Value)
 	{
 		// add movement in that direction
 		AddMovementInput(GetActorRightVector(), Value);
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), GetCharacterMovement()->MaxWalkSpeed));
 	}
 }
 
