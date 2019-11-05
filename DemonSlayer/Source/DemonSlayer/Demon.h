@@ -48,6 +48,9 @@ public:
 	float GetDamageUpperBound() { return DAMAGE_UPPERBOUND; }
 
 	const float DAMAGE_LOWERBOUND = 10.0f;
-	const float DAMAGE_UPPERBOUND = 25.0f;
+	const float DAMAGE_UPPERBOUND = 25.0f; 
+
+	UPROPERTY(BlueprintReadWrite, Category = Gameplay)
+	bool isDead;
 
 };
