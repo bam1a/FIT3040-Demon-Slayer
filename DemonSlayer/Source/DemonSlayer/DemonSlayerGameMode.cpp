@@ -84,11 +84,13 @@ void ADemonSlayerGameMode::Tick(float DeltaTime)
 		}
 		else
 		{
+			// Find current level name
 			UWorld* level = GetWorld();
 			FString levelName = level->GetMapName();
 
 			if (levelName == "Level1Test")
 			{
+				// Switch to level 2
 				FString MapString = UGameplayStatics::ParseOption(this->OptionsString, "MapToLoad");
 				MapString = "/Game/Maps/Level2Test.Level2Test";
 				FStringAssetReference MapToLoad = FStringAssetReference(MapString);
@@ -96,6 +98,7 @@ void ADemonSlayerGameMode::Tick(float DeltaTime)
 			}
 			else if (levelName == "Level2Test")
 			{
+				// Switch to end screen
 				FString MapString = UGameplayStatics::ParseOption(this->OptionsString, "MapToLoad");
 				MapString = "/Game/Maps/LevelEndScreen.LevelEndScreen";
 				FStringAssetReference MapToLoad = FStringAssetReference(MapString);
