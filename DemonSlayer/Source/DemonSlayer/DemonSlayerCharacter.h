@@ -73,9 +73,6 @@ class ADemonSlayerCharacter : public ACharacter
 	// The item the player is currently looking at
 	AInteractableObject* currentActor;
 
-	// The demon the player is currently looking at
-	ADemon* currentDemon;
-
 	bool hasBeenAttacked;
 
 public:
@@ -99,6 +96,10 @@ public:
 	// The current demon the player is attacking
 	UPROPERTY(BlueprintReadWrite, Category = Gameplay)
 	ADemon* attackTarget;
+
+	// The demon the player is currently looking at
+	UPROPERTY(BlueprintReadWrite, Category = Enemy)
+	ADemon* currentDemon;
 
 	/** Accessors */
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
@@ -198,7 +199,7 @@ public:
 
 	// The item the player is currently interacting with (can be called by blueprint but can't edit it)
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay)
-		AInteractableObject* ObjectInteractingWith;
+	AInteractableObject* ObjectInteractingWith;
 
 protected:
 
