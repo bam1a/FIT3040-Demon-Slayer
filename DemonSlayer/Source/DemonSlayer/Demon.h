@@ -42,11 +42,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	void SetHealth(float newHealth) { demonHealth = newHealth; }
 
+	// Get damage bounds
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	float GetDamageLowerBound() { return DAMAGE_LOWERBOUND; }
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	float GetDamageUpperBound() { return DAMAGE_UPPERBOUND; }
 
+	// Lower and upper bound for damage
 	const float DAMAGE_LOWERBOUND = 10.0f;
 	const float DAMAGE_UPPERBOUND = 25.0f; 
 

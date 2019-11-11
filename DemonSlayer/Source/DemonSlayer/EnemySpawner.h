@@ -12,6 +12,7 @@ class DEMONSLAYER_API AEnemySpawner : public AActor
 {
 	GENERATED_BODY()
 
+/*Obsolete spawner class*/
 public:	
 	// Sets default values for this actor's properties
 	AEnemySpawner();
