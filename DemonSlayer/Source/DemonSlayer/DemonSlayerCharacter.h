@@ -73,14 +73,12 @@ class ADemonSlayerCharacter : public ACharacter
 	// The item the player is currently looking at
 	AInteractableObject* currentActor;
 
-	// The demon the player is currently looking at
-	ADemon* currentDemon;
-
 	bool hasBeenAttacked;
 
 public:
 	ADemonSlayerCharacter();
 
+	// Obsolete footstep variables
 	USoundCue* footstepAudioCue;
 	UAudioComponent* footstepAudioComponent;
 
@@ -90,7 +88,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	/** Turn Demon Slayer mode on or off */
+	// Turn Demon Slayer mode on or off 
 	void ToggleDemonSlayer();
 	void DemonSlayerOn();
 	UFUNCTION(BlueprintCallable, Category = SlayerMode)
@@ -100,6 +98,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = Gameplay)
 	ADemon* attackTarget;
 
+	// The demon the player is currently looking at
+	UPROPERTY(BlueprintReadWrite, Category = Enemy)
+	ADemon* currentDemon;
+
 	/** Accessors */
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	bool GetDemonSlayerActivated() { return isDemonSlayerActivated; }
@@ -108,21 +110,27 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	bool GetHasDemonSlayer() { return hasDemonSlayer; }
 
+	// Get health
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	float GetHealth() { return health; }
 
+	// Get Demon Slayer meter
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	float GetDemonSlayerMeter() { return demonSlayerMeter; }
 
+	// Get object currently being looked at
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	AInteractableObject* GetCurrentActor() { return currentActor; }
 
+	// Get demon currently being looked at 
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	ADemon* GetCurrentDemon() { return currentDemon; }
 
+	// Get Demon currently attacking
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	ADemon* GetAttackTarget() { return attackTarget; }
 
+	// Determine if player has been attacked
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
 	bool GetHasBeenAttacked() { return hasBeenAttacked; }
 
@@ -198,7 +206,7 @@ public:
 
 	// The item the player is currently interacting with (can be called by blueprint but can't edit it)
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Gameplay)
-		AInteractableObject* ObjectInteractingWith;
+	AInteractableObject* ObjectInteractingWith;
 
 protected:
 

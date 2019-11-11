@@ -67,7 +67,7 @@ void ADemonController::Senses(AActor* updatedActor, FAIStimulus stimulus)
 
 void ADemonController::ActivateAI()
 {
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Some debug message!"));
+	// Activate behaviour tree so AI will run
 	if (!ensure(behaviorTree)) { return; }
 	RunBehaviorTree(behaviorTree);
 }
@@ -101,12 +101,12 @@ void ADemonController::Attack()
 	if (attackTarget != NULL)
 	{
 		// Attack player
-		//ADemon* thisDemon = Cast<ADemon>(GetPawn());
-		//attackTarget->SetHealth(attackTarget->GetHealth() - FMath::RandRange(thisDemon->DAMAGE_LOWERBOUND, thisDemon->DAMAGE_UPPERBOUND));
+		/* ADemon* thisDemon = Cast<ADemon>(GetPawn());
+		attackTarget->SetHealth(attackTarget->GetHealth() - FMath::RandRange(thisDemon->DAMAGE_LOWERBOUND, thisDemon->DAMAGE_UPPERBOUND)); */
 		isAttacking = true;
-		//Cast<ADemonSlayerCharacter>(attackTarget)->HasBeenAttacked();
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Player health: %f"), attackTarget->GetHealth()));
-		/*if (attackTarget->GetHealth() <= 0)
+		/*Cast<ADemonSlayerCharacter>(attackTarget)->HasBeenAttacked();
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Player health: %f"), attackTarget->GetHealth()));
+		if (attackTarget->GetHealth() <= 0)
 		{
 			attackTarget->Destroy();
 		}*/
@@ -116,7 +116,6 @@ void ADemonController::Attack()
 void ADemonController::IncreaseTimeSeen()
 {
 	BB->SetValueAsFloat(TEXT("DetectionMeter"), BB->GetValueAsFloat(TEXT("DetectionMeter")) + GetWorld()->GetDeltaSeconds());
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Detection meter: %f"), BB->GetValueAsFloat(TEXT("DetectionMeter"))));
 	if (BB->GetValueAsFloat(TEXT("DetectionMeter")) >= 2.0f)
 	{
 		BB->SetValueAsBool("HasDetectedPlayer", true);
@@ -126,7 +125,6 @@ void ADemonController::IncreaseTimeSeen()
 void ADemonController::IncreaseTimeSeenMediumRange()
 {
 	BB->SetValueAsFloat(TEXT("DetectionMeter"), BB->GetValueAsFloat(TEXT("DetectionMeter")) + (GetWorld()->GetDeltaSeconds() * 2));
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Detection meter(medium): %f"), BB->GetValueAsFloat(TEXT("DetectionMeter"))));
 	if (BB->GetValueAsFloat(TEXT("DetectionMeter")) >= 2.0f)
 	{
 		BB->SetValueAsBool("HasDetectedPlayer", true);

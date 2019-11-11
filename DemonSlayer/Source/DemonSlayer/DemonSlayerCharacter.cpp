@@ -139,6 +139,7 @@ void ADemonSlayerCharacter::BeginPlay()
 	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
 	isAttacking = false;
 	currentAttackCooldown = ATTACK_COOLDOWN;
+	// Give demon slayer at start of level if playing second level
 	if (Cast<ADemonSlayer2GameMode>(GetWorld()->GetAuthGameMode()))
 	{
 		hasDemonSlayer = true;
@@ -257,7 +258,6 @@ void ADemonSlayerCharacter::MoveForward(float Value)
 	{
 		// add movement in that direction
 		AddMovementInput(GetActorForwardVector(), Value);
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), GetCharacterMovement()->MaxWalkSpeed));
 
 	}
 }
@@ -268,7 +268,6 @@ void ADemonSlayerCharacter::MoveRight(float Value)
 	{
 		// add movement in that direction
 		AddMovementInput(GetActorRightVector(), Value);
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), GetCharacterMovement()->MaxWalkSpeed));
 	}
 }
 
@@ -308,7 +307,6 @@ void ADemonSlayerCharacter::Tick(float DeltaTime)
 	{
 		// Add progress as current progress plus time since last tick
 		ObjectInteractingWith->SetProgress(ObjectInteractingWith->GetProgress() + DeltaTime);
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), ObjectInteractingWith->GetProgress()));
 		// If progress is at max
 		if (ObjectInteractingWith->GetProgress() >= holdSecond)
 		{
@@ -349,7 +347,6 @@ void ADemonSlayerCharacter::Tick(float DeltaTime)
 	{
 		// Increase meter by cooldown constant
 		demonSlayerMeter += cooldownRate;
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), demonSlayerMeter));
 		if (demonSlayerMeter > 1.0f)
 		{
 			demonSlayerMeter = 1.0f;
@@ -396,7 +393,6 @@ void ADemonSlayerCharacter::DemonSlayerOn()
 	PostProDemonSlayer.AmbientCubemapIntensity = 4.0f;
 	/*PostProDemonSlayer.bOverride_VignetteIntensity;
 	PostProDemonSlayer.VignetteIntensity = 1.0f;*/
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), PostProDemonSlayer.VignetteIntensity));
 	FirstPersonCameraComponent->PostProcessSettings = PostProDemonSlayer;
 	// Set visibility of all objects to true
 	/*for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
@@ -428,7 +424,6 @@ void ADemonSlayerCharacter::DemonSlayerOn()
 			slayerObject->SetActorHiddenInGame(false);
 		}
 	}
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%f"), cooldownRate));
 }
 
 void ADemonSlayerCharacter::DemonSlayerOff()
@@ -436,7 +431,6 @@ void ADemonSlayerCharacter::DemonSlayerOff()
 	// Deactivate Demon Slayer
 	isDemonSlayerActivated = false;
 	// Return post process settings to normal
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Demon Slayer mode deactivated"));
 	FPostProcessSettings PostProNormal;
 	FirstPersonCameraComponent->PostProcessSettings = PostProNormal;
 	/*for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
@@ -477,19 +471,16 @@ void ADemonSlayerCharacter::OnInteract()
 {	// If Demon Slayer is deactivated
 	if (!isDemonSlayerActivated)
 	{
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Entered interact"));
 		if (currentActor)
 		{
 			// Set object interacting with to object currently looking at
 			ObjectInteractingWith = currentActor;
-			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%d"), ObjectInteractingWith));
 		}
 	}
 }
 
 void ADemonSlayerCharacter::OnStopInteract()
 {
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Exited interact"));
 	if (currentActor)
 	{
 		// Reset interaction
@@ -622,12 +613,11 @@ void ADemonSlayerCharacter::ProcessTraceHit(FHitResult& HitOut)
 	else if (DemonFound)
 	{
 		// set object looking to object hit by ray trace 
-		//actorRaytraced = true;
+		/* actorRaytraced = true; */
 		currentDemon = DemonFound;
 	}
 	else
 	{
-		//UE_LOG(LogClass, Warning, TEXT("TestPickup is NOT a Pickup!"));
 		// Reset ray trace information
 		actorRaytraced = false;
 		currentActor = NULL;
@@ -648,11 +638,10 @@ void ADemonSlayerCharacter::Attack()
 			{
 				// Attack enemy
 				isAttacking = true;
-				//attackTarget->SetHealth(attackTarget->GetHealth() - FMath::RandRange(DAMAGE_LOWERBOUND, DAMAGE_UPPERBOUND));
+				/*attackTarget->SetHealth(attackTarget->GetHealth() - FMath::RandRange(DAMAGE_LOWERBOUND, DAMAGE_UPPERBOUND));*/
 				ADemonController* attackTargetController = Cast<ADemonController>(attackTarget->GetController());
 				// Set enemy's focus to player when attacked
 				attackTargetController->SetFocusToPlayer(this);
-				//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Enemy health: %f"), attackTarget->GetHealth()));
 				// If enemy's health is zero 
 				/*if (attackTarget->GetHealth() <= 0)
 				{
@@ -701,8 +690,10 @@ void ADemonSlayerCharacter::Hint()
 		ADemonSlayerGameMode* gameMode = Cast<ADemonSlayerGameMode>(GetWorld()->GetAuthGameMode());
 		if (gameMode)
 		{
+			// Set description to secondary, more obvious objective description
 			gameMode->SetDescription(gameMode->GetCurrentObjective()->GetSecondary());
 		}
+		// Drain Slayer meter
 		demonSlayerMeter = 0.0f;
 		if (isDemonSlayerActivated)
 		{
